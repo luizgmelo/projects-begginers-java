@@ -5,32 +5,37 @@ public class Calculator {
         while (true) {
             Scanner scan = new Scanner(System.in);
             System.out.print("Enter a number:");
-            int firstNumber = scan.nextInt();
+            double firstNumber = scan.nextDouble();
             System.out.print("Enter other number:");
-            int secondNumber = scan.nextInt();
-            scan.nextLine();
+            double secondNumber = scan.nextDouble();
             System.out.print("Enter some operation (+,-,/,x):");
-            String operation = scan.nextLine();
+            char operation = scan.next().charAt(0);
+            double result;
 
             switch (operation) {
-                case "+":
-                    System.out.println(firstNumber + " + " + secondNumber + " = " + (firstNumber + secondNumber));
+                case '+':
+                    result = firstNumber + secondNumber;
                     break;
-                case "-":
-                    System.out.println(firstNumber + " - " + secondNumber + " = " + (firstNumber - secondNumber));
+                case '-':
+                    result = firstNumber - secondNumber;
                     break;
-                case "/":
-                    System.out.println(firstNumber + " / " + secondNumber + " = " + (float)(firstNumber / secondNumber));
+                case '/':
+                    result = firstNumber / secondNumber;
                     break;
-                case "x":
-                    System.out.println(firstNumber + " x " + secondNumber + " = " + (firstNumber * secondNumber));
+                case 'x':
+                    result = firstNumber * secondNumber;
                     break;
                 default:
                     System.out.println("Invalid Operation");
+                    continue;
             }
 
+            System.out.println(firstNumber+" "+operation+" "+secondNumber+" = "+result);
+
             System.out.print("Want close the program: (Y/N):");
-            if (scan.nextLine().equalsIgnoreCase("Y")) {
+            char wantClose = scan.next().charAt(0);
+            if (wantClose == 'Y' || wantClose == 'y') {
+                scan.close();
                 break;
             }
         }
