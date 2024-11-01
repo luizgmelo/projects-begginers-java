@@ -8,6 +8,7 @@ public class TicTacToe {
         char[][] board = {{' ', ' ', ' '},{' ',' ',' '},{' ',' ',' '}};
         char player = 'X';
         int row, col;
+        int plays = 0;
 
         while (true) {
             System.out.println("  0 1 2");
@@ -29,6 +30,7 @@ public class TicTacToe {
             }
 
             board[row][col] = player;
+            plays++;
 
             if (board[0][0] == player && board[0][1] == player && board[0][2] == player ||
                 board[1][0] == player && board[1][1] == player && board[1][2] == player ||
@@ -40,6 +42,11 @@ public class TicTacToe {
                 board[0][2] == player && board[1][2] == player && board[2][2] == player
             ) {
                 System.out.println("Player " + player + " Won!");
+                break;
+            }
+            
+            if (plays == 9) {
+                System.out.println("Tie!");
                 break;
             }
 
