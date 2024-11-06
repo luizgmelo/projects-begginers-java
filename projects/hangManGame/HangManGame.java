@@ -9,23 +9,37 @@ import java.util.Scanner;
 
 public class HangManGame {
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("/home/guilherme/Projects/study/projects-to-begginners/projects/hangManGame/words.txt"));
         Scanner keyboard = new Scanner(System.in);
-        List<String> words = new ArrayList<>();
 
-        while (scanner.hasNext()) {
-            words.add(scanner.nextLine());
+        System.out.println("1 ou 2 jogadores?");
+        String players = keyboard.nextLine();
+
+        String word;
+
+        if (players.charAt(0) == '1') {
+            Scanner scanner = new Scanner(new File("/home/guilherme/Projects/study/projects-to-begginners/projects/hangManGame/words.txt"));
+
+            List<String> words = new ArrayList<>();
+
+            while (scanner.hasNext()) {
+                words.add(scanner.nextLine());
+            }
+
+            Random rand = new Random();
+
+            word = words.get(rand.nextInt(words.size()));
+            scanner.close();
+        } else {
+            System.out.println("Pronto! Jogador 1 entre com sua palavra:");
+            word = keyboard.nextLine();
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("Jogador 2, Boa sorte!:");
         }
 
-        Random rand = new Random();
 
-        String word = words.get(rand.nextInt(words.size()));
-
-        System.out.println(word);
+        //System.out.println(word);
 
         List<Character> playerGuesses = new ArrayList<>();
-
-
 
         int countWrongs = 0;
 
@@ -35,24 +49,26 @@ public class HangManGame {
             wordStatus(word, playerGuesses);
 
             if (countWrongs == 6) {
-                System.out.println("You lose!");
+                System.out.println("Voce perdeu!");
                 break;
             }
 
             userGuessLetter(keyboard, playerGuesses);
 
             if (wordStatus(word, playerGuesses)) {
-                System.out.println("You win!");
+                System.out.println("Voce ganhou!");
                 break;
             }
 
             if (userGuessWord(keyboard, word)) {
-                System.out.println("You win!");
+                System.out.println("Voce ganhou!");
                 break;
             } else {
                 countWrongs++;
             }
         }
+        System.out.println("A palavra era " + word);
+        keyboard.close();
     }
 
     private static void printOutHangMan(int countWrongs) {
@@ -81,18 +97,18 @@ public class HangManGame {
     }
 
     private static boolean userGuessWord(Scanner keyboard, String word) {
-        System.out.println("Please enter your guess for the word:");
+        System.out.println("Por favor tente chutar a palavra:");
         String playerGuess = keyboard.nextLine();
         if (word.equalsIgnoreCase(playerGuess)) {
             return true;
         } else {
-            System.out.println("Nope, Try again");
+            System.out.println("Nao, Tente novamente");
         }
         return false;
     }
 
     private static void userGuessLetter(Scanner keyboard, List<Character> playerGuesses) {
-        System.out.println("Please enter your letter: ");
+        System.out.println("Por favor entre uma letra: ");
         String letterGuess = keyboard.nextLine();
         playerGuesses.add(letterGuess.toLowerCase().charAt(0));
     }
